@@ -26,14 +26,6 @@ type alias User =
     { id : Int
     , name : String
     , username : String
-    , address : Address
-    }
-
-
-type alias Address =
-    { street : String
-    , city : String
-    , zipcode : String
     }
 
 
@@ -72,30 +64,15 @@ usersView users =
 
 userView : User -> Html Msg
 userView user =
-    let
-        address =
-            user.address
-    in
-        li [ class "mdl-list__item mdl-list__item--three-line" ]
-            [ span [ class "mdl-list__item-primary-content" ]
-                [ i [ class "material-icons mdl-list__item-avatar" ] [ text "person" ]
-                , span [] [ text user.name ]
-                , span [ class "mdl-list__item-text-body" ]
-                    [ text <|
-                        address.zipcode
-                            ++ " "
-                            ++ address.city
-                            ++ ", "
-                            ++ address.street
-                    ]
-                ]
-            , span [ class "mdl-list__item-secondary-content" ]
-                [ span [ class "mdl-list__item-secondary-info" ]
-                    [ text user.username
-                    ]
-                , i [ class "material-icons" ] [ text "star" ]
+    li [ class "mdl-list__item mdl-list__item--three-line" ]
+        [ span [ class "mdl-list__item-primary-content" ]
+            [ i [ class "material-icons mdl-list__item-avatar" ] [ text "person" ]
+            , span [] [ text user.name ]
+            , span [ class "mdl-list__item-text-body" ]
+                [ text user.username
                 ]
             ]
+        ]
 
 
 view : Model -> Html Msg
@@ -131,19 +108,10 @@ usersDecoder =
 
 userDecoder : Decode.Decoder User
 userDecoder =
-    Decode.object4 User
+    Decode.object3 User
         ("id" := Decode.int)
         ("name" := Decode.string)
         ("username" := Decode.string)
-        ("address" := addressDecoder)
-
-
-addressDecoder : Decode.Decoder Address
-addressDecoder =
-    Decode.object3 Address
-        ("city" := Decode.string)
-        ("street" := Decode.string)
-        ("zipcode" := Decode.string)
 
 
 
