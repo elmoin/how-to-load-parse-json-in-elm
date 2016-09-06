@@ -4,9 +4,7 @@ import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Http
 import Json.Decode as Decode exposing ((:=))
-import Task
 
 
 -- MODEL
@@ -35,21 +33,13 @@ type alias User =
 
 type Msg
     = LoadUsers
-    | UsersSuccess Users
-    | UsersError Http.Error
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        LoadUsers ->
-            ( { model | statusMsg = "...loading ..." }, getUsers )
-
-        UsersSuccess users ->
-            ( { model | users = users }, Cmd.none )
-
-        UsersError error ->
-            ( { model | statusMsg = "error trying to load users" }, Cmd.none )
+        _ ->
+            ( model, Cmd.none )
 
 
 
@@ -69,13 +59,7 @@ view model =
 
 
 
--- HTTP
-
-
-getUsers : Cmd Msg
-getUsers =
-    Http.get usersDecoder "./users.json"
-        |> Task.perform UsersError UsersSuccess
+-- Decoders
 
 
 usersDecoder : Decode.Decoder Users
