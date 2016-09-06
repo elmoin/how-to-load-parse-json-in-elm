@@ -4,7 +4,6 @@ import Html exposing (..)
 import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Json.Decode as Decode exposing ((:=))
 
 
 -- MODEL
@@ -56,23 +55,6 @@ view model =
                 [ text "Load Users" ]
             ]
         ]
-
-
-
--- Decoders
-
-
-usersDecoder : Decode.Decoder Users
-usersDecoder =
-    Decode.list userDecoder
-
-
-userDecoder : Decode.Decoder User
-userDecoder =
-    Decode.object3 User
-        ("id" := Decode.int)
-        ("name" := Decode.string)
-        ("username" := Decode.string)
 
 
 
