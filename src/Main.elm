@@ -56,25 +56,6 @@ update msg model =
 -- VIEW
 
 
-usersView : Users -> Html Msg
-usersView users =
-    ul [ class "mdl-list" ]
-        (List.map userView users)
-
-
-userView : User -> Html Msg
-userView user =
-    li [ class "mdl-list__item mdl-list__item--three-line" ]
-        [ span [ class "mdl-list__item-primary-content" ]
-            [ i [ class "material-icons mdl-list__item-avatar" ] [ text "person" ]
-            , span [] [ text user.name ]
-            , span [ class "mdl-list__item-text-body" ]
-                [ text user.username
-                ]
-            ]
-        ]
-
-
 view : Model -> Html Msg
 view model =
     div [ class "mdl-grid" ]
@@ -83,10 +64,6 @@ view model =
             [ a
                 [ class "mdl-button mdl-js-button mdl-button--raised btn-more", onClick LoadUsers ]
                 [ text "Load Users" ]
-            , if List.isEmpty model.users then
-                div [ class "mdl-typography--headline" ] [ text model.statusMsg ]
-              else
-                usersView model.users
             ]
         ]
 

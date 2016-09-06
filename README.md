@@ -1,3 +1,3 @@
-# Step 4
+# Step 3
 
-Show data in view
+Load data
